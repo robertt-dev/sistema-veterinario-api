@@ -1,0 +1,22 @@
+services:
+
+  postgres:
+    image: postgres:14.19-alpine3.21
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: veterinarioDB
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminadmin
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  dbeaver:
+    image: dbeaver/cloudbeaver:25.2.4
+    container_name: dbeaver
+    ports:
+      - 8000:8978
+    volumes:
+      - ./data/dbeaver:/opt/cloudbeaver/workspace
