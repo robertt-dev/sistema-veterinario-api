@@ -3,6 +3,8 @@ package sistema.veterinario.api.veterinario.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,13 +22,13 @@ public class UsuarioSistemaController {
     private UsuarioSistemaService usuarioSistemaService;
 
     @GetMapping("/listar")
-    public List<UsuarioSistemaDTO> listar() {
-        return usuarioSistemaService.listar();
+    public ResponseEntity<List<UsuarioSistemaDTO>> listar() {
+        return ResponseEntity.ok().body(usuarioSistemaService.listar());
     }
 
     @PostMapping("/cadastro")
-    public void cadastroUsuario(@RequestBody UsuarioSistemaDTO usuario) {
-        
+    public ResponseEntity<?> cadastroUsuario(@RequestBody UsuarioSistemaDTO usuario) {
         usuarioSistemaService.cadastroUsuario(usuario);
+        return ResponseEntity.ok().build();
     }
 }

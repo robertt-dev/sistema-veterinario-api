@@ -9,4 +9,5 @@ import sistema.veterinario.api.veterinario.model.entity.UsuarioSistema;
 public interface UsuarioSistemaRepository extends JpaRepository<UsuarioSistema, Long> {
     
     boolean existsByEmail(String email);
+
 }
