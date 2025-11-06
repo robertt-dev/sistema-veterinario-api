@@ -1,7 +1,7 @@
 package sistema.veterinario.api.veterinario.model.enums;
 
-public enum SituacaoEnum {
-  
+public enum SituacaoUsuarioEnum {
+
   ATIV,
   INAT;
 }

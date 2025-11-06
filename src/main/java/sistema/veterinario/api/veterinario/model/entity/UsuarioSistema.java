@@ -1,6 +1,5 @@
 package sistema.veterinario.api.veterinario.model.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,8 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sistema.veterinario.api.veterinario.model.dto.UsuarioSistemaDTO;
-import sistema.veterinario.api.veterinario.model.enums.FuncaoEnum;
-import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
+import sistema.veterinario.api.veterinario.model.enums.FuncaoUsuarioEnum;
+import sistema.veterinario.api.veterinario.model.enums.SituacaoUsuarioEnum;
 
 @Entity
 @Getter
@@ -33,11 +32,11 @@ public class UsuarioSistema {
     private int crmv;
 
     @Enumerated(EnumType.STRING)
-    FuncaoEnum funcao;
+    FuncaoUsuarioEnum funcao;
 
     @Enumerated(EnumType.STRING)
-    SituacaoEnum situacao;
-    
+    SituacaoUsuarioEnum situacao;
+
     public UsuarioSistema(UsuarioSistemaDTO usuario) {
         this.nomeCompleto = usuario.getNomeCompleto();
         this.nomeLogin = usuario.getNomeLogin();
@@ -47,5 +46,5 @@ public class UsuarioSistema {
         this.funcao = usuario.getFuncao();
         this.situacao = usuario.getSituacao();
     }
-    
+
 }

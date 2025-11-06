@@ -1,6 +1,6 @@
 package sistema.veterinario.api.veterinario.model.enums;
 
-public enum FuncaoEnum {
+public enum FuncaoUsuarioEnum {
 
   VET,
   RECEP,
