@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.validation.Valid;
 import sistema.veterinario.api.veterinario.exception.VeterinarioException;
 import sistema.veterinario.api.veterinario.model.dto.UsuarioSistemaDTO;
 import sistema.veterinario.api.veterinario.model.entity.UsuarioSistema;
@@ -22,7 +23,7 @@ public class UsuarioSistemaService {
         return usuarioSistemaRepository.findAll().stream().map(UsuarioSistemaDTO::new).toList();
     }
 
-    public void cadastroUsuario(UsuarioSistemaDTO usuario) {
+    public void cadastroUsuario(@Valid UsuarioSistemaDTO usuario) {
 
         if (usuarioSistemaRepository.existsByEmail(usuario.getEmail())) {
             throw new VeterinarioException("Este Email já existe!");

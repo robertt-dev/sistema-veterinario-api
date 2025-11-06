@@ -1,10 +1,16 @@
 package sistema.veterinario.api.veterinario.model.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sistema.veterinario.api.veterinario.model.entity.UsuarioSistema;
+import sistema.veterinario.api.veterinario.model.enums.FuncaoEnum;
+import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 
 @Getter
 @Setter
@@ -14,16 +20,40 @@ public class UsuarioSistemaDTO {
 
     private Long id;
 
-    private String nome;
+    @NotBlank
+    private String nomeCompleto;
+
+    @NotBlank
+    private String nomeLogin;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
     private String senha;
 
-    public UsuarioSistemaDTO(UsuarioSistema usuario) {
+    @NotBlank
+    @Pattern(regexp = "\\d{4,6}")
+    private int crmv;
+
+    @NotNull
+    FuncaoEnum funcao;
+    
+    @NotNull
+    SituacaoEnum situacao;
+
+    public UsuarioSistemaDTO(UsuarioSistema usuarioSistema) {
         this(
-                usuario.getId(),
-                usuario.getNome(),
-                usuario.getEmail(),
-                null);
+            usuarioSistema.getId(),
+            usuarioSistema.getNomeCompleto(),
+            usuarioSistema.getNomeLogin(),
+            usuarioSistema.getEmail(),
+            null,
+            usuarioSistema.getCrmv(),
+            usuarioSistema.getFuncao(),
+            usuarioSistema.getSituacao()
+        );
     }
 
 }

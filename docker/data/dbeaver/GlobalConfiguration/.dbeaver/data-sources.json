@@ -1,10 +1,10 @@
 {
 	"folders": {},
 	"connections": {
-		"postgres-jdbc-19a544a9ee0-78a805ec2c5cc8b1": {
+		"postgres-jdbc-19a56b25f5f-37df1d6b3fad435d": {
 			"provider": "postgresql",
 			"driver": "postgres-jdbc",
-			"name": "veterinario",
+			"name": "veterinarioDB",
 			"save-password": true,
 			"configuration": {
 				"host": "postgres",
