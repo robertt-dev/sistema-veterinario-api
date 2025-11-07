@@ -26,7 +26,7 @@ public class UsuarioSistemaDTO {
     @NotBlank
     private String nomeLogin;
 
-    @NotBlank
+    @NotBlank(message = "Email vazio")
     @Email
     private String email;
 
@@ -35,13 +35,13 @@ public class UsuarioSistemaDTO {
 
     @NotBlank
     @Pattern(regexp = "\\d{4,6}")
-    private int crmv;
+    private Integer crmv;
 
     @NotNull
-    FuncaoUsuarioEnum funcao;
+    private String funcao;
     
     @NotNull
-    SituacaoUsuarioEnum situacao;
+    private SituacaoUsuarioEnum situacao;
 
     public UsuarioSistemaDTO(UsuarioSistema usuarioSistema) {
         this(
@@ -51,7 +51,7 @@ public class UsuarioSistemaDTO {
             usuarioSistema.getEmail(),
             null,
             usuarioSistema.getCrmv(),
-            usuarioSistema.getFuncao(),
+            usuarioSistema.getFuncao().toString(),
             usuarioSistema.getSituacao()
         );
     }

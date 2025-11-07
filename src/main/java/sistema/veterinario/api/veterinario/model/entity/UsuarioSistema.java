@@ -37,14 +37,14 @@ public class UsuarioSistema {
     @Enumerated(EnumType.STRING)
     SituacaoUsuarioEnum situacao;
 
-    public UsuarioSistema(UsuarioSistemaDTO usuario) {
-        this.nomeCompleto = usuario.getNomeCompleto();
-        this.nomeLogin = usuario.getNomeLogin();
-        this.email = usuario.getEmail();
-        this.senha = usuario.getSenha();
-        this.crmv = usuario.getCrmv();
-        this.funcao = usuario.getFuncao();
-        this.situacao = usuario.getSituacao();
+    public UsuarioSistema(UsuarioSistemaDTO usuarioDTO) {
+        this.nomeCompleto = usuarioDTO.getNomeCompleto();
+        this.nomeLogin = usuarioDTO.getNomeLogin();
+        this.email = usuarioDTO.getEmail();
+        this.senha = usuarioDTO.getSenha();
+        this.crmv = usuarioDTO.getCrmv();
+        this.funcao = FuncaoUsuarioEnum.valueOf(usuarioDTO.getFuncao());
+        this.situacao = usuarioDTO.getSituacao();
     }
 
 }

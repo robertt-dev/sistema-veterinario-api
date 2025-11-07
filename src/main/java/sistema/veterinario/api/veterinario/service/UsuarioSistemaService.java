@@ -2,6 +2,7 @@ package sistema.veterinario.api.veterinario.service;
 
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,30 +25,84 @@ public class UsuarioSistemaService {
 
     public Page<UsuarioSistemaDTO> listarUsuarioSistema(Pageable lista) {
         return usuarioSistemaRepository
-        .findAllBySituacao(SituacaoUsuarioEnum.ATIV, lista)
-        .map(UsuarioSistemaDTO::new);
+                .findAllBySituacao(SituacaoUsuarioEnum.ATIV, lista)
+                .map(UsuarioSistemaDTO::new);
     }
 
-    public void cadastroUsuario(@Valid UsuarioSistemaDTO usuario) {
+    public void cadastroUsuario(@Valid UsuarioSistemaDTO usuarioDTO) {
 
-        if (usuarioSistemaRepository.existsByEmail(usuario.getEmail())) {
+        this.verificacaoCadastro(usuarioDTO);
+
+        usuarioDTO.setSituacao(SituacaoUsuarioEnum.ATIV);
+        usuarioSistemaRepository.save(new UsuarioSistema(usuarioDTO));
+    }
+
+    public void verificacaoCadastro(UsuarioSistemaDTO usuarioDTO) {
+
+        if (StringUtils.isBlank(usuarioDTO.getNomeCompleto())) {
+            throw new VeterinarioException("O campo Nome completo é obrigatorio!");
+        }
+
+        if (StringUtils.isBlank(usuarioDTO.getNomeLogin())) {
+            throw new VeterinarioException("O campo Login é obrigatorio!");
+        }
+
+        if (StringUtils.isBlank(usuarioDTO.getEmail())) {
+            throw new VeterinarioException("O campo Email é obrigatorio!");
+        }
+
+        if (StringUtils.isBlank(usuarioDTO.getSenha())) {
+            throw new VeterinarioException("O campo senha é obrigatorio!");
+        }
+
+        if (usuarioDTO.getCrmv() == null) {
+            throw new VeterinarioException("O campo crmv é obrigatorio!");
+        }
+
+        if (StringUtils.isBlank(usuarioDTO.getNomeCompleto())) {
+            throw new VeterinarioException("O campo Email é obrigatorio!");
+        }
+
+        if (StringUtils.isBlank(usuarioDTO.getFuncao())) {
+            throw new VeterinarioException("O campo Função é obrigatorio!");
+        }
+
+        if (usuarioSistemaRepository.existsByNomeLogin(usuarioDTO.getNomeLogin())) {
+            throw new VeterinarioException("Nome de Login já existe!");
+        }
+
+        if (usuarioSistemaRepository.existsByCrmv(usuarioDTO.getCrmv())) {
+            throw new VeterinarioException("CRMV já cadastrado!");
+        }
+
+        if (usuarioSistemaRepository.existsByEmail(usuarioDTO.getEmail())) {
             throw new VeterinarioException("Este Email já existe!");
         }
 
-        usuarioSistemaRepository.save(new UsuarioSistema(usuario));
     }
 
-
-    //Revisar sobre
+    // Revisar sobre
     public void deletarUsuario(Long id) {
         Optional<UsuarioSistema> usuarioOptional = usuarioSistemaRepository.findById(id);
-        if(usuarioOptional.isPresent()){
+        if (usuarioOptional.isPresent()) {
             UsuarioSistema usuario = usuarioOptional.get();
             usuario.setSituacao(SituacaoUsuarioEnum.INAT);
             this.usuarioSistemaRepository.save(usuario);
         } else {
-            throw new VeterinarioException("Esse usuario não existe!"); 
-        };
+            throw new VeterinarioException("Esse usuario não existe!");
+        }
+        ;
     }
 
+    public void atualizarUsuarioSistema(Long id, UsuarioSistemaDTO usuarioSistemaDTO) {
+        // fazer a verificação se já não existe no banco
+        //https://mvnrepository.com/artifact/org.apache.commons/commons-lang3/3.19.0
+
+        Optional<UsuarioSistema> usuarioOptional = usuarioSistemaRepository.findById(id);
+        if (usuarioOptional.isPresent()) {
+             UsuarioSistema usuario = usuarioOptional.get();
+             usuario.setNomeCompleto(usuarioSistemaDTO.getNomeCompleto());
+             usuarioSistemaRepository.save(usuario);
+        } 
+    }
 }

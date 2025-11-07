@@ -14,4 +14,8 @@ public interface UsuarioSistemaRepository extends JpaRepository<UsuarioSistema, 
     boolean existsByEmail(String email);
 
     Page<UsuarioSistema> findAllBySituacao(SituacaoUsuarioEnum situacao, Pageable pageable);
+
+    boolean existsByNomeLogin(String nomeLogin);
+
+    boolean existsByCrmv(int crmv);
 }
