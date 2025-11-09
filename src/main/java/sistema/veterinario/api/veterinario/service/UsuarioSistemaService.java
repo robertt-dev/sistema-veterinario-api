@@ -95,12 +95,13 @@ public class UsuarioSistemaService {
     }
 
     public void atualizarUsuarioSistema(Long id, UsuarioSistemaDTO usuarioSistemaDTO) {
-        // fazer a verificação se já não existe no banco
-        //https://mvnrepository.com/artifact/org.apache.commons/commons-lang3/3.19.0
+        Optional<UsuarioSistema> usuarioOptionalId = 
+        usuarioSistemaRepository.findById(id);
+        Optional<UsuarioSistema> usuarioOptionalEmail = 
+        usuarioSistemaRepository.findByEmail(usuarioSistemaDTO.getEmail());
 
-        Optional<UsuarioSistema> usuarioOptional = usuarioSistemaRepository.findById(id);
-        if (usuarioOptional.isPresent()) {
-             UsuarioSistema usuario = usuarioOptional.get();
+        if (usuarioOptionalId.isPresent()) {
+             UsuarioSistema usuario = usuarioOptionalId.get();
              usuario.setNomeCompleto(usuarioSistemaDTO.getNomeCompleto());
              usuarioSistemaRepository.save(usuario);
         } 
