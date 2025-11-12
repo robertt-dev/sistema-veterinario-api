@@ -29,7 +29,7 @@ public class UsuarioSistema {
     private String nomeLogin;
     private String email;
     private String senha;
-    private int crmv;
+    private Integer crmv;
 
     @Enumerated(EnumType.STRING)
     FuncaoUsuarioEnum funcao;

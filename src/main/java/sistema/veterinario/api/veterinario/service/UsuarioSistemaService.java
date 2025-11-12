@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import sistema.veterinario.api.veterinario.exception.VeterinarioException;
 import sistema.veterinario.api.veterinario.model.dto.UsuarioSistemaDTO;
 import sistema.veterinario.api.veterinario.model.entity.UsuarioSistema;
+import sistema.veterinario.api.veterinario.model.enums.FuncaoUsuarioEnum;
 import sistema.veterinario.api.veterinario.model.enums.SituacaoUsuarioEnum;
 import sistema.veterinario.api.veterinario.model.repository.UsuarioSistemaRepository;
 
@@ -95,15 +96,31 @@ public class UsuarioSistemaService {
     }
 
     public void atualizarUsuarioSistema(Long id, UsuarioSistemaDTO usuarioSistemaDTO) {
-        Optional<UsuarioSistema> usuarioOptionalId = 
-        usuarioSistemaRepository.findById(id);
-        Optional<UsuarioSistema> usuarioOptionalEmail = 
-        usuarioSistemaRepository.findByEmail(usuarioSistemaDTO.getEmail());
+
+        if (usuarioSistemaRepository.existsByEmailAndIdNot(usuarioSistemaDTO.getEmail(), id)) {
+            throw new VeterinarioException("Já existe um usuario com esse Email!");
+        }
+
+        if (usuarioSistemaRepository.existsByNomeLoginAndIdNot(usuarioSistemaDTO.getNomeLogin(), id)) {
+            throw new VeterinarioException("Este Login já esta em uso!");
+        }
+
+        if (usuarioSistemaRepository.existsByCrmvAndIdNot(usuarioSistemaDTO.getCrmv(), id)) {
+            throw new VeterinarioException("Este CRMV já existe!");
+        }
+
+        Optional<UsuarioSistema> usuarioOptionalId = usuarioSistemaRepository.findById(id);
 
         if (usuarioOptionalId.isPresent()) {
-             UsuarioSistema usuario = usuarioOptionalId.get();
-             usuario.setNomeCompleto(usuarioSistemaDTO.getNomeCompleto());
-             usuarioSistemaRepository.save(usuario);
-        } 
+            UsuarioSistema usuario = usuarioOptionalId.get();
+            usuario.setEmail(usuarioSistemaDTO.getEmail());
+            usuario.setNomeLogin(usuarioSistemaDTO.getNomeLogin());
+            usuario.setCrmv(usuarioSistemaDTO.getCrmv());
+            usuario.setNomeCompleto(usuarioSistemaDTO.getNomeCompleto());
+            usuario.setFuncao(FuncaoUsuarioEnum.valueOf(usuarioSistemaDTO.getFuncao()));
+            usuario.setSituacao(usuarioSistemaDTO.getSituacao());
+            usuario.setSenha(usuarioSistemaDTO.getSenha());
+            usuarioSistemaRepository.save(usuario);
+        }
     }
 }

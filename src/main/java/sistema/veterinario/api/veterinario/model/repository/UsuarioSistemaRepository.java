@@ -20,11 +20,13 @@ public interface UsuarioSistemaRepository extends JpaRepository<UsuarioSistema, 
 
     boolean existsByCrmv(int crmv);
 
-    Optional<UsuarioSistema> existsByEmail();
-
-    Optional<UsuarioSistema> findByEmail();
-
     boolean existsByEmail(String email);
+    
+    boolean existsByEmailAndIdNot(String email, Long id);
+
+    boolean existsByNomeLoginAndIdNot(String nomeLogin, Long id);
+
+    boolean existsByCrmvAndIdNot(Integer crmv, Long id);
 
     Optional<UsuarioSistema> findByEmail(String email);
 }
