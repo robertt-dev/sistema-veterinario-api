@@ -41,4 +41,9 @@ public class UsuarioSistemaController {
     public void atualizarUsuarioSistema(@PathVariable Long id, @RequestBody UsuarioSistemaDTO usuarioDTO) {
         usuarioSistemaService.atualizarUsuarioSistema(id, usuarioDTO);
     } 
+
+    @PostMapping("/login")
+    public void autenticacao(UsuarioSistemaDTO usuarioDTO) {
+        usuarioSistemaService.autenticacaoUsuarioSistema();
+    }
 }

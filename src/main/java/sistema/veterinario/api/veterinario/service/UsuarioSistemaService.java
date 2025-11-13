@@ -1,5 +1,8 @@
 package sistema.veterinario.api.veterinario.service;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
@@ -30,9 +33,23 @@ public class UsuarioSistemaService {
                 .map(UsuarioSistemaDTO::new);
     }
 
+    public String transformaSenhaHash(String senha) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(senha.getBytes());
+            byte[] digest = md.digest();
+            BigInteger no = new BigInteger(1, digest);
+            return String.format("%032x", no);  // 32-character hex string
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void cadastroUsuario(@Valid UsuarioSistemaDTO usuarioDTO) {
 
         this.verificacaoCadastro(usuarioDTO);
+
+        usuarioDTO.setSenha(transformaSenhaHash(usuarioDTO.getSenha()));
 
         usuarioDTO.setSituacao(SituacaoUsuarioEnum.ATIV);
         usuarioSistemaRepository.save(new UsuarioSistema(usuarioDTO));
@@ -79,10 +96,8 @@ public class UsuarioSistemaService {
         if (usuarioSistemaRepository.existsByEmail(usuarioDTO.getEmail())) {
             throw new VeterinarioException("Este Email já existe!");
         }
-
     }
 
-    // Revisar sobre
     public void deletarUsuario(Long id) {
         Optional<UsuarioSistema> usuarioOptional = usuarioSistemaRepository.findById(id);
         if (usuarioOptional.isPresent()) {
@@ -122,5 +137,9 @@ public class UsuarioSistemaService {
             usuario.setSenha(usuarioSistemaDTO.getSenha());
             usuarioSistemaRepository.save(usuario);
         }
+    }
+
+    public void autenticacaoUsuarioSistema() {
+        
     }
 }
