@@ -43,7 +43,7 @@ public class UsuarioSistemaController {
     } 
 
     @PostMapping("/login")
-    public void autenticacao(UsuarioSistemaDTO usuarioDTO) {
-        usuarioSistemaService.autenticacaoUsuarioSistema();
+    public void autenticacao(@RequestBody UsuarioSistemaDTO usuarioDTO) {
+        usuarioSistemaService.autenticacaoUsuarioSistema(usuarioDTO);
     }
 }

@@ -29,4 +29,8 @@ public interface UsuarioSistemaRepository extends JpaRepository<UsuarioSistema, 
     boolean existsByCrmvAndIdNot(Integer crmv, Long id);
 
     Optional<UsuarioSistema> findByEmail(String email);
+
+    Optional<UsuarioSistema> findByNomeLogin(String nomeLogin);
+
+    Optional<UsuarioSistema> findBySenha(String senha);
 }

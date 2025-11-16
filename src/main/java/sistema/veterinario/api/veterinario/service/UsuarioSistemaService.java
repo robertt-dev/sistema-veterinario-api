@@ -139,7 +139,18 @@ public class UsuarioSistemaService {
         }
     }
 
-    public void autenticacaoUsuarioSistema() {
+    public String autenticacaoUsuarioSistema(UsuarioSistemaDTO usuarioDTO) {
         
+        var nomeLogin = usuarioSistemaRepository
+                        .findByNomeLogin(usuarioDTO.getNomeLogin())
+                        .orElseThrow(() -> new VeterinarioException("Login ou senha inválidos!"));
+
+        var senhaDigitadaHash = transformaSenhaHash(usuarioDTO.getSenha());
+
+        if(!senhaDigitadaHash.equals(nomeLogin.getSenha())) {
+            throw new VeterinarioException("Login ou senha inválidos!");
+        } 
+
+        return "Usuário Conectado!";
     }
 }
