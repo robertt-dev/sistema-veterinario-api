@@ -141,13 +141,13 @@ public class UsuarioSistemaService {
 
     public String autenticacaoUsuarioSistema(UsuarioSistemaDTO usuarioDTO) {
         
-        var nomeLogin = usuarioSistemaRepository
+        UsuarioSistema usuario = usuarioSistemaRepository
                         .findByNomeLogin(usuarioDTO.getNomeLogin())
                         .orElseThrow(() -> new VeterinarioException("Login ou senha inválidos!"));
 
-        var senhaDigitadaHash = transformaSenhaHash(usuarioDTO.getSenha());
+        String senhaDigitadaHash = transformaSenhaHash(usuarioDTO.getSenha());
 
-        if(!senhaDigitadaHash.equals(nomeLogin.getSenha())) {
+        if(!senhaDigitadaHash.equals(usuario.getSenha())) {
             throw new VeterinarioException("Login ou senha inválidos!");
         } 
 

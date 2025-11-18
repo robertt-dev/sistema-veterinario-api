@@ -3,6 +3,7 @@ package sistema.veterinario.api.veterinario.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,27 +24,31 @@ public class UsuarioSistemaController {
     private UsuarioSistemaService usuarioSistemaService;
 
     @GetMapping("/listar")
-    public Page<UsuarioSistemaDTO> listarUsuarioSistema(Pageable lista) {
-        return usuarioSistemaService.listarUsuarioSistema(lista);
+    public ResponseEntity<Page<UsuarioSistemaDTO>> listarUsuarioSistema(Pageable lista) {
+        return ResponseEntity.ok(usuarioSistemaService.listarUsuarioSistema(lista));
     }
 
     @PostMapping("/cadastro")
-    public void cadastroUsuarioSistema(@RequestBody UsuarioSistemaDTO usuario) {
-        usuarioSistemaService.cadastroUsuario(usuario); 
+    public ResponseEntity<?> cadastroUsuarioSistema(@RequestBody UsuarioSistemaDTO usuario) {
+        usuarioSistemaService.cadastroUsuario(usuario);
+        return ResponseEntity.ok().build(); 
     }
 
     @DeleteMapping("/deletar/{id}")
-    public void deletarUsuarioSistema(@PathVariable Long id) {
+    public ResponseEntity<String> deletarUsuarioSistema(@PathVariable Long id) {
         usuarioSistemaService.deletarUsuario(id);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/atualizar/{id}")
-    public void atualizarUsuarioSistema(@PathVariable Long id, @RequestBody UsuarioSistemaDTO usuarioDTO) {
+    public ResponseEntity<String> atualizarUsuarioSistema(@PathVariable Long id, @RequestBody UsuarioSistemaDTO usuarioDTO) {
         usuarioSistemaService.atualizarUsuarioSistema(id, usuarioDTO);
+        return ResponseEntity.ok().build();
     } 
 
     @PostMapping("/login")
-    public void autenticacao(@RequestBody UsuarioSistemaDTO usuarioDTO) {
-        usuarioSistemaService.autenticacaoUsuarioSistema(usuarioDTO);
+    public ResponseEntity<String> autenticacao(@RequestBody UsuarioSistemaDTO usuarioDTO) {
+        String mensagem = usuarioSistemaService.autenticacaoUsuarioSistema(usuarioDTO);
+        return ResponseEntity.ok(mensagem);
     }
 }
