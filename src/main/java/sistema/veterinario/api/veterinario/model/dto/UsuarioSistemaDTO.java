@@ -9,8 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sistema.veterinario.api.veterinario.model.entity.UsuarioSistema;
-import sistema.veterinario.api.veterinario.model.enums.FuncaoUsuarioEnum;
-import sistema.veterinario.api.veterinario.model.enums.SituacaoUsuarioEnum;
+import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 
 @Getter
 @Setter
@@ -41,7 +40,7 @@ public class UsuarioSistemaDTO {
     private String funcao;
     
     @NotNull
-    private SituacaoUsuarioEnum situacao;
+    private SituacaoEnum situacao;
 
     public UsuarioSistemaDTO(UsuarioSistema usuarioSistema) {
         this(

@@ -1,7 +1,8 @@
 package sistema.veterinario.api.veterinario.model.enums;
 
-public enum SituacaoUsuarioEnum {
+public enum DeOndeAnimalEnum {
 
-  ATIV,
-  INAT;
+  INTERNO,
+  EXTERNO
 }
+

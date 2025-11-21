@@ -17,7 +17,7 @@ import sistema.veterinario.api.veterinario.exception.VeterinarioException;
 import sistema.veterinario.api.veterinario.model.dto.UsuarioSistemaDTO;
 import sistema.veterinario.api.veterinario.model.entity.UsuarioSistema;
 import sistema.veterinario.api.veterinario.model.enums.FuncaoUsuarioEnum;
-import sistema.veterinario.api.veterinario.model.enums.SituacaoUsuarioEnum;
+import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 import sistema.veterinario.api.veterinario.model.repository.UsuarioSistemaRepository;
 
 @Service
@@ -29,7 +29,7 @@ public class UsuarioSistemaService {
 
     public Page<UsuarioSistemaDTO> listarUsuarioSistema(Pageable lista) {
         return usuarioSistemaRepository
-                .findAllBySituacao(SituacaoUsuarioEnum.ATIV, lista)
+                .findAllBySituacao(SituacaoEnum.ATIV, lista)
                 .map(UsuarioSistemaDTO::new);
     }
 
@@ -51,7 +51,7 @@ public class UsuarioSistemaService {
 
         usuarioDTO.setSenha(transformaSenhaHash(usuarioDTO.getSenha()));
 
-        usuarioDTO.setSituacao(SituacaoUsuarioEnum.ATIV);
+        usuarioDTO.setSituacao(SituacaoEnum.ATIV);
         usuarioSistemaRepository.save(new UsuarioSistema(usuarioDTO));
     }
 
@@ -102,7 +102,7 @@ public class UsuarioSistemaService {
         Optional<UsuarioSistema> usuarioOptional = usuarioSistemaRepository.findById(id);
         if (usuarioOptional.isPresent()) {
             UsuarioSistema usuario = usuarioOptional.get();
-            usuario.setSituacao(SituacaoUsuarioEnum.INAT);
+            usuario.setSituacao(SituacaoEnum.INAT);
             this.usuarioSistemaRepository.save(usuario);
         } else {
             throw new VeterinarioException("Esse usuario não existe!");

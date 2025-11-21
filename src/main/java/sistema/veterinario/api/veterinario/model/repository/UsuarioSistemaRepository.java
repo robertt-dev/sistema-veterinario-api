@@ -8,13 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import sistema.veterinario.api.veterinario.model.entity.UsuarioSistema;
-import sistema.veterinario.api.veterinario.model.enums.SituacaoUsuarioEnum;
+import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 
 @Repository
 public interface UsuarioSistemaRepository extends JpaRepository<UsuarioSistema, Long> {
     
 
-    Page<UsuarioSistema> findAllBySituacao(SituacaoUsuarioEnum situacao, Pageable pageable);
+    Page<UsuarioSistema> findAllBySituacao(SituacaoEnum situacao, Pageable pageable);
 
     boolean existsByNomeLogin(String nomeLogin);
 

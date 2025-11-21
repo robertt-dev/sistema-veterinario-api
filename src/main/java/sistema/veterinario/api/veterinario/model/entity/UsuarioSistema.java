@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sistema.veterinario.api.veterinario.model.dto.UsuarioSistemaDTO;
 import sistema.veterinario.api.veterinario.model.enums.FuncaoUsuarioEnum;
-import sistema.veterinario.api.veterinario.model.enums.SituacaoUsuarioEnum;
+import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 
 @Entity
 @Getter
@@ -35,7 +35,7 @@ public class UsuarioSistema {
     FuncaoUsuarioEnum funcao;
 
     @Enumerated(EnumType.STRING)
-    SituacaoUsuarioEnum situacao;
+    SituacaoEnum situacao;
 
     public UsuarioSistema(UsuarioSistemaDTO usuarioDTO) {
         this.nomeCompleto = usuarioDTO.getNomeCompleto();
