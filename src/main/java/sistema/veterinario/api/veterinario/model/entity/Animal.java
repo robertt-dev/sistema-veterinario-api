@@ -43,8 +43,8 @@ public class Animal {
     @Enumerated(EnumType.STRING)
     SituacaoEnum situacaoEnum;
 
-    //@ManyToOne
-    //private Tutor tutor;
+    @ManyToOne
+    private Tutor tutor;
 
     public Animal(AnimalDTO animalDTO) {
         this.nome = animalDTO.getNome();
@@ -56,5 +56,6 @@ public class Animal {
         this.tempAnimalEnum = animalDTO.getTempAnimalEnum();
         this.deOndeEnum = animalDTO.getDeOndeEnum();
         this.situacaoEnum = animalDTO.getSituacaoEnum();
+        this.tutor = animalDTO.getTutor();
     }
 }

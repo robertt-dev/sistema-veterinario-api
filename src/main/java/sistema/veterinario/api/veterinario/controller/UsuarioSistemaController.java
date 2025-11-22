@@ -29,7 +29,7 @@ public class UsuarioSistemaController {
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity<?> cadastroUsuarioSistema(@RequestBody UsuarioSistemaDTO usuario) {
+    public ResponseEntity<UsuarioSistemaDTO> cadastroUsuarioSistema(@RequestBody UsuarioSistemaDTO usuario) {
         usuarioSistemaService.cadastroUsuario(usuario);
         return ResponseEntity.ok().build(); 
     }

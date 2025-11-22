@@ -9,11 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.validation.Valid;
 import sistema.veterinario.api.veterinario.exception.VeterinarioException;
 import sistema.veterinario.api.veterinario.model.dto.AnimalDTO;
 import sistema.veterinario.api.veterinario.model.entity.Animal;
+import sistema.veterinario.api.veterinario.model.entity.Tutor;
 import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 import sistema.veterinario.api.veterinario.model.repository.AnimalRepository;
+import sistema.veterinario.api.veterinario.model.repository.TutorRepository;
 
 @Service
 @Transactional
@@ -22,14 +25,23 @@ public class AnimalService {
   @Autowired
   private AnimalRepository animalRepository;
 
+  @Autowired
+  private TutorRepository tutorRepository;
+
   public Page<AnimalDTO> listarAnimal(Pageable lista) {
     return animalRepository
         .findAllBySituacaoEnum(SituacaoEnum.ATIV, lista)
         .map(AnimalDTO::new);
   }
 
-  public void cadastroAnimal(AnimalDTO animalDTO) {
+  public void cadastroAnimal(@Valid AnimalDTO animalDTO) {
+
+    Tutor tutor = tutorRepository.findById(animalDTO.getTutor().getId())
+      .orElseThrow(() -> new VeterinarioException("Tutor informado não existe!"));
+
+    animalDTO.setTutor(tutor);
     this.verificacaoCadastroAnimal(animalDTO);
+    
     animalDTO.setSituacaoEnum(SituacaoEnum.ATIV);
     animalRepository.save(new Animal(animalDTO));
   }
@@ -62,7 +74,10 @@ public class AnimalService {
     if (animalDTO.getDeOndeEnum() == null) {
       throw new VeterinarioException("Informe se o animal é interno ou externo!");
     }
-    
+
+    if (animalDTO.getTutor() == null) {
+        throw new VeterinarioException("É obrigatorio informar o tutor!");
+    }
   }
 
   public void deletaAnimal(Long id) {
@@ -91,6 +106,7 @@ public class AnimalService {
       animal.setIdadeAnimal(animalDTO.getIdadeAnimal());
       animal.setTempAnimalEnum(animalDTO.getTempAnimalEnum());
       animal.setDeOndeEnum(animalDTO.getDeOndeEnum());
+      animal.setTutor(animalDTO.getTutor());
     }
   }
 

@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sistema.veterinario.api.veterinario.model.entity.Animal;
+import sistema.veterinario.api.veterinario.model.entity.Tutor;
 import sistema.veterinario.api.veterinario.model.enums.DeOndeAnimalEnum;
 import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 import sistema.veterinario.api.veterinario.model.enums.TemperamentoAnimalEnum;
@@ -48,6 +49,9 @@ public class AnimalDTO {
 
   private SituacaoEnum situacaoEnum;
 
+  @NotNull
+  private Tutor tutor;
+
   public AnimalDTO(Animal animal) {
     this(
       animal.getId(),
@@ -59,7 +63,8 @@ public class AnimalDTO {
       animal.getIdadeAnimal(),
       animal.getTempAnimalEnum(),
       animal.getDeOndeEnum(),
-      animal.getSituacaoEnum()
+      animal.getSituacaoEnum(),
+      animal.getTutor()
     );
   }
 }

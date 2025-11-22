@@ -34,7 +34,7 @@ public class UsuarioSistemaDTO {
 
     @NotBlank
     @Pattern(regexp = "\\d{4,6}")
-    private Integer crmv;
+    private String crmv;
 
     @NotNull
     private String funcao;
