@@ -22,14 +22,13 @@ public class TutorDTO {
   private String nome;
 
   @NotBlank
-  @Pattern(regexp = "^(?:\\d{11}|\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2})$")
   private String cpf;
 
   @NotBlank
   @Pattern(regexp = "\\d{9,11}")
   private String telefone;
   
-  @Email
+  @Email(message = "Digite um email válido!")
   private String email;
 
   SituacaoEnum situacaoEnum;

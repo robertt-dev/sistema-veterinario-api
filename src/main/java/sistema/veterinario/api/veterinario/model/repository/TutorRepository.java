@@ -13,5 +13,9 @@ public interface TutorRepository extends JpaRepository<Tutor, Long> {
   Page<Tutor> findAllBySituacaoEnum(SituacaoEnum SituacaoEnum, Pageable listar);
 
   boolean existsByCpf(String cpf);
+
+  boolean existsByTelefone(String telefone);
+
+  boolean existsByEmail(String email);
   
 }

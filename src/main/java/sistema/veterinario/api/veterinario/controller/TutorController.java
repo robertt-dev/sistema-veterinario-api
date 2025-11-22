@@ -33,8 +33,4 @@ public class TutorController {
    return ResponseEntity.ok(tutorService.listarTutor(listar));
   }
 
-
-
-
-
 }

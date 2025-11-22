@@ -35,7 +35,7 @@ public class TutorService {
       throw new VeterinarioException("O nome do tutor é obrigatorio!");
     }
     
-    if (StringUtils.isBlank(tutorDTO.getCpf())) {
+    if (!tutorDTO.getCpf().matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
       throw new VeterinarioException("O cpf do tutor é obrigatorio e deve conter 11 digitos!");
     }
 
@@ -44,11 +44,23 @@ public class TutorService {
     }
 
     if (StringUtils.isBlank(tutorDTO.getTelefone())) {
-      throw new VeterinarioException("O telefone é Obrigatorio e deve conter no mínimo 11 digitos!");
+      throw new VeterinarioException("O telefone é Obrigatorio!");
+    }
+
+    if (!tutorDTO.getTelefone().matches("\\d{11}")) {
+      throw new VeterinarioException("Numero de telefone invalido!");
+    }
+
+    if (tutorRepository.existsByTelefone(tutorDTO.getTelefone())) {
+      throw new VeterinarioException("Este Telefone já exite!");
     }
 
     if (StringUtils.isBlank(tutorDTO.getEmail())) {
-      throw new VeterinarioException("Digite o Email!");
+      throw new VeterinarioException("O Email é obrigatorio!");
+    }
+
+    if (tutorRepository.existsByEmail(tutorDTO.getEmail())) {
+      throw new VeterinarioException("Este Email já existe!");
     }
     
   }
