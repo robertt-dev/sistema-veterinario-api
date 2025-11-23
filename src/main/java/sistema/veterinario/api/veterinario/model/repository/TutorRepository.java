@@ -17,5 +17,11 @@ public interface TutorRepository extends JpaRepository<Tutor, Long> {
   boolean existsByTelefone(String telefone);
 
   boolean existsByEmail(String email);
+
+  boolean existsByCpfAndIdNot(String cpf, Long id);
+
+  boolean existsByTelefoneAndIdNot(String telefone, Long id);
+
+  boolean existsByEmailAndIdNot(String email, Long id);
   
 }

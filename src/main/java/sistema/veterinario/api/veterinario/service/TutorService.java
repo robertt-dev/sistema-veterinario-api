@@ -1,5 +1,7 @@
 package sistema.veterinario.api.veterinario.service;
 
+import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -69,6 +71,42 @@ public class TutorService {
     return tutorRepository
     .findAllBySituacaoEnum(SituacaoEnum.ATIV, listar)
     .map(TutorDTO::new);
+  }
+
+  public void atualizarTutor(Long id, TutorDTO tutorDTO) {
+    if (tutorRepository.existsByCpfAndIdNot(tutorDTO.getCpf(), id)) {
+      throw new VeterinarioException("Este CPF já existe!");
+    }
+
+    if (tutorRepository.existsByTelefoneAndIdNot(tutorDTO.getTelefone(), id)) {
+      throw new VeterinarioException("Este telefone já existe!");
+    }
+
+    if (tutorRepository.existsByEmailAndIdNot(tutorDTO.getEmail(), id)) {
+      throw new VeterinarioException("Este email já existe!");
+    }
+
+    Optional<Tutor> tutorOptionalId = tutorRepository.findById(id);
+
+    if (tutorOptionalId.isPresent()) {
+      Tutor tutor = tutorOptionalId.get();
+      tutor.setNome(tutorDTO.getNome());
+      tutor.setCpf(tutorDTO.getCpf());
+      tutor.setTelefone(tutorDTO.getTelefone());
+      tutor.setEmail(tutorDTO.getEmail());
+    }
+  }
+
+  public void deletarTutor(Long id) {
+    Optional<Tutor> tutorOptionalId = tutorRepository.findById(id);
+
+    if (tutorOptionalId.isPresent()) {
+      Tutor tutor = tutorOptionalId.get();
+      tutor.setSituacaoEnum(SituacaoEnum.INAT);
+      tutorRepository.save(tutor);
+    } else {
+      throw new VeterinarioException("Este tutor não existe!");
+    }
   }
   
 }
