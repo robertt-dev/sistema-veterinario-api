@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.validation.Valid;
 import sistema.veterinario.api.veterinario.exception.VeterinarioException;
 import sistema.veterinario.api.veterinario.model.dto.AnimalDTO;
+import sistema.veterinario.api.veterinario.model.dto.ClienteDTO;
 import sistema.veterinario.api.veterinario.model.entity.Animal;
 import sistema.veterinario.api.veterinario.model.entity.Cliente;
 import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
@@ -36,11 +37,13 @@ public class AnimalService {
 
   public void cadastroAnimal(@Valid AnimalDTO animalDTO) {
 
-    Cliente cliente = clienteRepository.findById(animalDTO.getCliente().getId())
+    this.verificacaoCadastroAnimal(animalDTO);
+    
+    Cliente cliente = clienteRepository.findById(animalDTO.getClienteDTO().getId())
         .orElseThrow(() -> new VeterinarioException("Tutor informado não existe!"));
 
-    animalDTO.setCliente(cliente);
-    this.verificacaoCadastroAnimal(animalDTO);
+
+    animalDTO.setClienteDTO(new ClienteDTO(cliente));
 
     animalDTO.setSituacaoEnum(SituacaoEnum.ATIV);
     animalRepository.save(new Animal(animalDTO));
@@ -75,7 +78,7 @@ public class AnimalService {
       throw new VeterinarioException("Informe se o animal é interno ou externo!");
     }
 
-    if (animalDTO.getCliente() == null) {
+    if (animalDTO.getClienteDTO() == null) {
       throw new VeterinarioException("É obrigatorio informar o tutor!");
     }
   }
@@ -106,7 +109,7 @@ public class AnimalService {
       animal.setIdadeAnimal(animalDTO.getIdadeAnimal());
       animal.setTempAnimalEnum(animalDTO.getTempAnimalEnum());
       animal.setDeOndeEnum(animalDTO.getDeOndeEnum());
-      animal.setCliente(animalDTO.getCliente());
+      animal.setCliente(new Cliente(animalDTO.getClienteDTO()));
     }
   }
 

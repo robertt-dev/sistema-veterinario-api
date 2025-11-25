@@ -19,7 +19,7 @@ import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cliente {
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -33,11 +33,12 @@ public class Cliente {
   SituacaoEnum situacaoEnum;
 
   public Cliente(ClienteDTO clienteDTO) {
-    this.nome = clienteDTO.getNome();
-    this.cpf = clienteDTO.getCpf();
-    this.telefone = clienteDTO.getTelefone();
-    this.email = clienteDTO.getEmail();
-    this.situacaoEnum = clienteDTO.getSituacaoEnum();
+    this(
+        clienteDTO.getId(),
+        clienteDTO.getNome(),
+        clienteDTO.getCpf(),
+        clienteDTO.getTelefone(),
+        clienteDTO.getEmail(),
+        clienteDTO.getSituacaoEnum());
   }
 }
-

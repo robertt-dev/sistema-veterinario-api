@@ -31,10 +31,13 @@ public class AgendamentoDTO {
     private StatusAgendamentoEnum statusAgendamentoEnum;
 
     @NotNull
-    private UsuarioSistema veterinario;
+    private UsuarioSistemaDTO veterinario;
+
+    @NotNull(message = "informe o recepcionista")
+    private UsuarioSistemaDTO recepcionista;
 
     @NotNull
-    private Animal animal;
+    private AnimalDTO animal;
 
     public AgendamentoDTO(Agendamento agendamento) {
         this(
@@ -43,7 +46,9 @@ public class AgendamentoDTO {
                 agendamento.getHoraAgendamento(),
                 agendamento.getMotivo(),
                 agendamento.getStatusAgendamentoEnum(),
-                agendamento.getVeterinario(),
-                agendamento.getAnimal());
+                new UsuarioSistemaDTO(agendamento.getVeterinario()),
+                new UsuarioSistemaDTO(agendamento.getRecepcionista()),
+                new AnimalDTO(agendamento.getAnimal())
+            );
     }
 }

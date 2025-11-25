@@ -17,6 +17,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleRuntimeException(RuntimeException exception) {
+        exception.printStackTrace();
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Ocorreu um erro inesperado.");

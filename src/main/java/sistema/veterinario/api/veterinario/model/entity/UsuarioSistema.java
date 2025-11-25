@@ -47,4 +47,8 @@ public class UsuarioSistema {
         this.situacaoEnum = usuarioDTO.getSituacaoEnum();
     }
 
+    public UsuarioSistema(Long id) {
+        this.id = id;
+    }
+
 }

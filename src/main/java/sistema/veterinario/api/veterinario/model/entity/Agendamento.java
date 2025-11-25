@@ -39,15 +39,22 @@ public class Agendamento {
     private UsuarioSistema veterinario;
 
     @ManyToOne
+    private UsuarioSistema recepcionista;
+
+    @ManyToOne
     private Animal animal;
 
     public Agendamento(AgendamentoDTO agendamentoDTO) {
-        this.dataAgendamento = agendamentoDTO.getDataAgendamento();
-        this.horaAgendamento = agendamentoDTO.getHoraAgendamento();
-        this.motivo = agendamentoDTO.getMotivo();
-        this.statusAgendamentoEnum = agendamentoDTO.getStatusAgendamentoEnum();
-        this.veterinario = agendamentoDTO.getVeterinario();
-        this.animal = agendamentoDTO.getAnimal();
+        this(
+            agendamentoDTO.getId(),
+            agendamentoDTO.getDataAgendamento(),
+            agendamentoDTO.getHoraAgendamento(),
+            agendamentoDTO.getMotivo(),
+            agendamentoDTO.getStatusAgendamentoEnum(),
+            new UsuarioSistema(agendamentoDTO.getVeterinario().getId()),
+            new UsuarioSistema(agendamentoDTO.getRecepcionista().getId()),
+            new Animal(agendamentoDTO.getAnimal().getId())
+        );
     }
 
 }

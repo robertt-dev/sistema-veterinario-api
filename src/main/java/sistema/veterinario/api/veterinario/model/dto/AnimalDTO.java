@@ -50,7 +50,7 @@ public class AnimalDTO {
   private SituacaoEnum situacaoEnum;
 
   @NotNull
-  private Cliente cliente;
+  private ClienteDTO clienteDTO;
 
   public AnimalDTO(Animal animal) {
     this(
@@ -64,7 +64,7 @@ public class AnimalDTO {
       animal.getTempAnimalEnum(),
       animal.getDeOndeEnum(),
       animal.getSituacaoEnum(),
-      animal.getCliente()
+      new ClienteDTO(animal.getCliente())
     );
   }
 }

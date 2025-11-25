@@ -47,15 +47,25 @@ public class Animal {
     private Cliente cliente;
 
     public Animal(AnimalDTO animalDTO) {
-        this.nome = animalDTO.getNome();
-        this.especie = animalDTO.getEspecie();
-        this.raca = animalDTO.getRaca();
-        this.corPelo = animalDTO.getCorPelo();
-        this.sexo = animalDTO.getSexo();
-        this.idadeAnimal = animalDTO.getIdadeAnimal();
-        this.tempAnimalEnum = animalDTO.getTempAnimalEnum();
-        this.deOndeEnum = animalDTO.getDeOndeEnum();
-        this.situacaoEnum = animalDTO.getSituacaoEnum();
-        this.cliente = animalDTO.getCliente();
+        this(
+            animalDTO.getId(),
+            animalDTO.getNome(),
+            animalDTO.getEspecie(),
+            animalDTO.getRaca(),
+            animalDTO.getCorPelo(),
+            animalDTO.getSexo(),
+            animalDTO.getIdadeAnimal(),
+            animalDTO.getTempAnimalEnum(),
+            animalDTO.getDeOndeEnum(),
+            animalDTO.getSituacaoEnum(),
+            new Cliente(animalDTO.getClienteDTO())
+        );
     }
+
+    public Animal(Long id) {
+        this.id = id;
+    }
+
+    
+
 }

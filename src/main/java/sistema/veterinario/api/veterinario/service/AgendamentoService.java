@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import sistema.veterinario.api.veterinario.exception.VeterinarioException;
 import sistema.veterinario.api.veterinario.model.dto.AgendamentoDTO;
 import sistema.veterinario.api.veterinario.model.entity.Agendamento;
+import sistema.veterinario.api.veterinario.model.enums.StatusAgendamentoEnum;
 import sistema.veterinario.api.veterinario.model.repository.AgendamentoRepository;
 
 @Service
@@ -20,6 +21,7 @@ public class AgendamentoService {
     public void agendarConsulta(AgendamentoDTO agendamentoDTO) {
 
         this.verificarAgendamentoConsulta(agendamentoDTO);
+        agendamentoDTO.setStatusAgendamentoEnum(StatusAgendamentoEnum.AGENDADO);
 
         agendamentoRepository.save(new Agendamento(agendamentoDTO));
     }
@@ -37,16 +39,16 @@ public class AgendamentoService {
             throw new VeterinarioException("O motivo do agendamento é obrigatório!");
         }
 
-        if (agendamentoDTO.getStatusAgendamentoEnum() == null) {
-            throw new VeterinarioException("Colocar Status do Agendamento!");
-        }
-
         if (agendamentoDTO.getVeterinario() == null) {
             throw new VeterinarioException("O Veterinario é obrigatorio!");
         }
 
         if (agendamentoDTO.getAnimal() == null) {
             throw new VeterinarioException("O animal é obrigatorio!");
+        }
+
+        if (agendamentoDTO.getRecepcionista() == null) {
+            throw new VeterinarioException("Informe o recepcionista!");
         }
     }
 
