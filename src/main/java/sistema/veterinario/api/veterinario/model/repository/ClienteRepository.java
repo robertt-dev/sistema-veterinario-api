@@ -5,12 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import sistema.veterinario.api.veterinario.model.entity.Tutor;
+import sistema.veterinario.api.veterinario.model.entity.Cliente;
 import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 
-public interface TutorRepository extends JpaRepository<Tutor, Long> {
+public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
-  Page<Tutor> findAllBySituacaoEnum(SituacaoEnum SituacaoEnum, Pageable listar);
+  Page<Cliente> findAllBySituacaoEnum(SituacaoEnum SituacaoEnum, Pageable listar);
 
   boolean existsByCpf(String cpf);
 

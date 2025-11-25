@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sistema.veterinario.api.veterinario.model.dto.TutorDTO;
+import sistema.veterinario.api.veterinario.model.dto.ClienteDTO;
 import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 
 @Entity
@@ -18,7 +18,7 @@ import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Tutor {
+public class Cliente {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +32,12 @@ public class Tutor {
   @Enumerated(EnumType.STRING)
   SituacaoEnum situacaoEnum;
 
-  public Tutor(TutorDTO tutorDTO) {
-    this.nome = tutorDTO.getNome();
-    this.cpf = tutorDTO.getCpf();
-    this.telefone = tutorDTO.getTelefone();
-    this.email = tutorDTO.getEmail();
-    this.situacaoEnum = tutorDTO.getSituacaoEnum();
+  public Cliente(ClienteDTO clienteDTO) {
+    this.nome = clienteDTO.getNome();
+    this.cpf = clienteDTO.getCpf();
+    this.telefone = clienteDTO.getTelefone();
+    this.email = clienteDTO.getEmail();
+    this.situacaoEnum = clienteDTO.getSituacaoEnum();
   }
 }
 

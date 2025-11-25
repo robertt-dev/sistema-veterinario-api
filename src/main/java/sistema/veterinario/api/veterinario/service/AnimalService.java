@@ -13,10 +13,10 @@ import jakarta.validation.Valid;
 import sistema.veterinario.api.veterinario.exception.VeterinarioException;
 import sistema.veterinario.api.veterinario.model.dto.AnimalDTO;
 import sistema.veterinario.api.veterinario.model.entity.Animal;
-import sistema.veterinario.api.veterinario.model.entity.Tutor;
+import sistema.veterinario.api.veterinario.model.entity.Cliente;
 import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 import sistema.veterinario.api.veterinario.model.repository.AnimalRepository;
-import sistema.veterinario.api.veterinario.model.repository.TutorRepository;
+import sistema.veterinario.api.veterinario.model.repository.ClienteRepository;
 
 @Service
 @Transactional
@@ -26,7 +26,7 @@ public class AnimalService {
   private AnimalRepository animalRepository;
 
   @Autowired
-  private TutorRepository tutorRepository;
+  private ClienteRepository clienteRepository;
 
   public Page<AnimalDTO> listarAnimal(Pageable lista) {
     return animalRepository
@@ -36,10 +36,10 @@ public class AnimalService {
 
   public void cadastroAnimal(@Valid AnimalDTO animalDTO) {
 
-    Tutor tutor = tutorRepository.findById(animalDTO.getTutor().getId())
+    Cliente cliente = clienteRepository.findById(animalDTO.getCliente().getId())
       .orElseThrow(() -> new VeterinarioException("Tutor informado não existe!"));
 
-    animalDTO.setTutor(tutor);
+    animalDTO.setCliente(cliente);
     this.verificacaoCadastroAnimal(animalDTO);
     
     animalDTO.setSituacaoEnum(SituacaoEnum.ATIV);
@@ -75,7 +75,7 @@ public class AnimalService {
       throw new VeterinarioException("Informe se o animal é interno ou externo!");
     }
 
-    if (animalDTO.getTutor() == null) {
+    if (animalDTO.getCliente() == null) {
         throw new VeterinarioException("É obrigatorio informar o tutor!");
     }
   }
@@ -106,7 +106,7 @@ public class AnimalService {
       animal.setIdadeAnimal(animalDTO.getIdadeAnimal());
       animal.setTempAnimalEnum(animalDTO.getTempAnimalEnum());
       animal.setDeOndeEnum(animalDTO.getDeOndeEnum());
-      animal.setTutor(animalDTO.getTutor());
+      animal.setCliente(animalDTO.getCliente());
     }
   }
 

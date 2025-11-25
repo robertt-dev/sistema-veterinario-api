@@ -14,37 +14,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import sistema.veterinario.api.veterinario.model.dto.TutorDTO;
-import sistema.veterinario.api.veterinario.service.TutorService;
+import sistema.veterinario.api.veterinario.model.dto.ClienteDTO;
+import sistema.veterinario.api.veterinario.service.ClienteService;
 
 @RestController
-@RequestMapping("/tutor")
-public class TutorController {
+@RequestMapping("/cliente")
+public class ClienteController {
   
   @Autowired
-  private TutorService tutorService;
+  private ClienteService clienteService;
 
   @PostMapping("/cadastrar")
-  public ResponseEntity<TutorDTO> cadastrarTutor(@Valid @RequestBody TutorDTO tutorDTO) {
-    tutorService.cadastrarTutor(tutorDTO);
+  public ResponseEntity<ClienteDTO> cadastrarCliente(@Valid @RequestBody ClienteDTO clienteDTO) {
+    clienteService.cadastrarCliente(clienteDTO);
 
     return ResponseEntity.ok().build();
   }
 
   @GetMapping("/listar")
-  public ResponseEntity<Page<TutorDTO>> listarTutor(Pageable listar) {
-   return ResponseEntity.ok(tutorService.listarTutor(listar));
+  public ResponseEntity<Page<ClienteDTO>> listarCliente(Pageable listar) {
+   return ResponseEntity.ok(clienteService.listarCliente(listar));
   }
 
   @PutMapping("/atualizar/{id}")
-  public ResponseEntity<String> atualizarTutor(@PathVariable Long id, @RequestBody TutorDTO tutorDTO) {
-    tutorService.atualizarTutor(id, tutorDTO);
+  public ResponseEntity<String> atualizarCliente(@PathVariable Long id, @RequestBody ClienteDTO clienteDTO) {
+    clienteService.atualizarCliente(id, clienteDTO);
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/deletar/{id}")
-  public ResponseEntity<String> deletarTutor(@PathVariable Long id) {
-    tutorService.deletarTutor(id);
+  public ResponseEntity<String> deletarCliente(@PathVariable Long id) {
+    clienteService.deletarCliente(id);
     return ResponseEntity.ok().build();
   }
 

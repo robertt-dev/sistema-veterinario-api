@@ -44,7 +44,7 @@ public class Animal {
     SituacaoEnum situacaoEnum;
 
     @ManyToOne
-    private Tutor tutor;
+    private Cliente cliente;
 
     public Animal(AnimalDTO animalDTO) {
         this.nome = animalDTO.getNome();
@@ -56,6 +56,6 @@ public class Animal {
         this.tempAnimalEnum = animalDTO.getTempAnimalEnum();
         this.deOndeEnum = animalDTO.getDeOndeEnum();
         this.situacaoEnum = animalDTO.getSituacaoEnum();
-        this.tutor = animalDTO.getTutor();
+        this.cliente = animalDTO.getCliente();
     }
 }

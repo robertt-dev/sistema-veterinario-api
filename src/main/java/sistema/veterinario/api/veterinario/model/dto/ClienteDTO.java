@@ -7,14 +7,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sistema.veterinario.api.veterinario.model.entity.Tutor;
+import sistema.veterinario.api.veterinario.model.entity.Cliente;
 import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TutorDTO {
+public class ClienteDTO {
   
   private Long id;
 
@@ -33,14 +33,14 @@ public class TutorDTO {
 
   SituacaoEnum situacaoEnum;
 
-  public TutorDTO(Tutor tutor) {
+  public ClienteDTO(Cliente cliente) {
     this(
-      tutor.getId(),
-      tutor.getNome(),
-      tutor.getCpf(),
-      tutor.getTelefone(),
-      tutor.getEmail(),
-      tutor.getSituacaoEnum()
+      cliente.getId(),
+      cliente.getNome(),
+      cliente.getCpf(),
+      cliente.getTelefone(),
+      cliente.getEmail(),
+      cliente.getSituacaoEnum()
     );
   }
 }
