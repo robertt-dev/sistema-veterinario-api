@@ -32,10 +32,10 @@ public class UsuarioSistema {
     private String crmv;
 
     @Enumerated(EnumType.STRING)
-    FuncaoUsuarioEnum funcao;
+    FuncaoUsuarioEnum funcaoEnum;
 
     @Enumerated(EnumType.STRING)
-    SituacaoEnum situacao;
+    SituacaoEnum situacaoEnum;
 
     public UsuarioSistema(UsuarioSistemaDTO usuarioDTO) {
         this.nomeCompleto = usuarioDTO.getNomeCompleto();
@@ -43,8 +43,8 @@ public class UsuarioSistema {
         this.email = usuarioDTO.getEmail();
         this.senha = usuarioDTO.getSenha();
         this.crmv = usuarioDTO.getCrmv();
-        this.funcao = FuncaoUsuarioEnum.valueOf(usuarioDTO.getFuncao());
-        this.situacao = usuarioDTO.getSituacao();
+        this.funcaoEnum = FuncaoUsuarioEnum.valueOf(usuarioDTO.getFuncaoEnum());
+        this.situacaoEnum = usuarioDTO.getSituacaoEnum();
     }
 
 }

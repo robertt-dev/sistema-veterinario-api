@@ -37,11 +37,11 @@ public class AnimalService {
   public void cadastroAnimal(@Valid AnimalDTO animalDTO) {
 
     Cliente cliente = clienteRepository.findById(animalDTO.getCliente().getId())
-      .orElseThrow(() -> new VeterinarioException("Tutor informado não existe!"));
+        .orElseThrow(() -> new VeterinarioException("Tutor informado não existe!"));
 
     animalDTO.setCliente(cliente);
     this.verificacaoCadastroAnimal(animalDTO);
-    
+
     animalDTO.setSituacaoEnum(SituacaoEnum.ATIV);
     animalRepository.save(new Animal(animalDTO));
   }
@@ -65,7 +65,7 @@ public class AnimalService {
 
     if (StringUtils.isBlank(animalDTO.getSexo())) {
       throw new VeterinarioException("O sexo do animal é obrigatorio!");
-    } 
+    }
 
     if (animalDTO.getTempAnimalEnum() == null) {
       throw new VeterinarioException("O temperamento do animal é obrigatorio!");
@@ -76,7 +76,7 @@ public class AnimalService {
     }
 
     if (animalDTO.getCliente() == null) {
-        throw new VeterinarioException("É obrigatorio informar o tutor!");
+      throw new VeterinarioException("É obrigatorio informar o tutor!");
     }
   }
 
@@ -93,7 +93,7 @@ public class AnimalService {
   }
 
   public void atualizarAnimal(Long id, AnimalDTO animalDTO) {
-    
+
     Optional<Animal> animalOptionalId = animalRepository.findById(id);
 
     if (animalOptionalId.isPresent()) {
@@ -109,6 +109,5 @@ public class AnimalService {
       animal.setCliente(animalDTO.getCliente());
     }
   }
-
 
 }

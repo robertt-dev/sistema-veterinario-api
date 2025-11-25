@@ -29,7 +29,7 @@ public class UsuarioSistemaService {
 
     public Page<UsuarioSistemaDTO> listarUsuarioSistema(Pageable lista) {
         return usuarioSistemaRepository
-                .findAllBySituacao(SituacaoEnum.ATIV, lista)
+                .findAllBySituacaoEnum(SituacaoEnum.ATIV, lista)
                 .map(UsuarioSistemaDTO::new);
     }
 
@@ -51,7 +51,7 @@ public class UsuarioSistemaService {
 
         usuarioDTO.setSenha(transformaSenhaHash(usuarioDTO.getSenha()));
 
-        usuarioDTO.setSituacao(SituacaoEnum.ATIV);
+        usuarioDTO.setSituacaoEnum(SituacaoEnum.ATIV);
         usuarioSistemaRepository.save(new UsuarioSistema(usuarioDTO));
     }
 
@@ -81,7 +81,7 @@ public class UsuarioSistemaService {
             throw new VeterinarioException("O campo Email é obrigatorio!");
         }
 
-        if (StringUtils.isBlank(usuarioDTO.getFuncao())) {
+        if (StringUtils.isBlank(usuarioDTO.getFuncaoEnum())) {
             throw new VeterinarioException("O campo Função é obrigatorio!");
         }
 
@@ -102,7 +102,7 @@ public class UsuarioSistemaService {
         Optional<UsuarioSistema> usuarioOptional = usuarioSistemaRepository.findById(id);
         if (usuarioOptional.isPresent()) {
             UsuarioSistema usuario = usuarioOptional.get();
-            usuario.setSituacao(SituacaoEnum.INAT);
+            usuario.setSituacaoEnum(SituacaoEnum.INAT);
             this.usuarioSistemaRepository.save(usuario);
         } else {
             throw new VeterinarioException("Esse usuario não existe!");
@@ -132,8 +132,8 @@ public class UsuarioSistemaService {
             usuario.setNomeLogin(usuarioSistemaDTO.getNomeLogin());
             usuario.setCrmv(usuarioSistemaDTO.getCrmv());
             usuario.setNomeCompleto(usuarioSistemaDTO.getNomeCompleto());
-            usuario.setFuncao(FuncaoUsuarioEnum.valueOf(usuarioSistemaDTO.getFuncao()));
-            usuario.setSituacao(usuarioSistemaDTO.getSituacao());
+            usuario.setFuncaoEnum(FuncaoUsuarioEnum.valueOf(usuarioSistemaDTO.getFuncaoEnum()));
+            usuario.setSituacaoEnum(usuarioSistemaDTO.getSituacaoEnum());
             usuario.setSenha(usuarioSistemaDTO.getSenha());
             usuarioSistemaRepository.save(usuario);
         }

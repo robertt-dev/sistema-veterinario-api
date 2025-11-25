@@ -37,10 +37,10 @@ public class UsuarioSistemaDTO {
     private String crmv;
 
     @NotNull
-    private String funcao;
+    private String funcaoEnum;
     
     @NotNull
-    private SituacaoEnum situacao;
+    private SituacaoEnum situacaoEnum;
 
     public UsuarioSistemaDTO(UsuarioSistema usuarioSistema) {
         this(
@@ -50,8 +50,8 @@ public class UsuarioSistemaDTO {
             usuarioSistema.getEmail(),
             null,
             usuarioSistema.getCrmv(),
-            usuarioSistema.getFuncao().toString(),
-            usuarioSistema.getSituacao()
+            usuarioSistema.getFuncaoEnum().toString(),
+            usuarioSistema.getSituacaoEnum()
         );
     }
 

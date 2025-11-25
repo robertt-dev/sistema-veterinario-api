@@ -14,7 +14,7 @@ import sistema.veterinario.api.veterinario.model.enums.SituacaoEnum;
 public interface UsuarioSistemaRepository extends JpaRepository<UsuarioSistema, Long> {
     
 
-    Page<UsuarioSistema> findAllBySituacao(SituacaoEnum situacao, Pageable pageable);
+    Page<UsuarioSistema> findAllBySituacaoEnum(SituacaoEnum situacao, Pageable pageable);
 
     boolean existsByNomeLogin(String nomeLogin);
 
